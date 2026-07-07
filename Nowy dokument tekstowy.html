@@ -234,3 +234,165 @@
         <button class="tab-button active" id="tab-sklep" onclick="openTab('sklep')">🛒 Sklep</button>
         <button class="tab-button" id="tab-wersje" onclick="openTab('wersje')">📂 Wersje</button>
     </div>
+
+    <div id="sklep" class="tab-content">
+        <div class="box" style="text-align: center; border-top-color: #38bdf8;">
+            <h2>🎉 Witamy w Panelu!</h2>
+            <p style="color: #70d278; font-weight: bold;">Autoryzacja przebiegła pomyślnie.</p>
+            <p style="font-size: 13px; color: #94a3b8;">Twój zabezpieczony klucz dostępu (.epf) dla silnika został pobrany. Możesz teraz swobodnie korzystać ze sklepu oraz pobierać silnik w zakładce Wersje.</p>
+        </div>
+
+        <div class="box">
+            <h3>Złoty Szablon Aktora</h3>
+            <div style="text-align:center; color:#00f0ff; font-weight:bold; margin-bottom:10px;">Koszt: 50 EP$</div>
+            <div class="preview-img">
+                <svg width="80" height="80" viewBox="0 0 120 120">
+                    <polygon points="60,20 100,40 60,60 20,40" fill="#00f0ff" stroke="#7000ff" stroke-width="2" opacity="0.8"/>
+                    <polygon points="20,40 60,60 60,100 20,80" fill="#7000ff" stroke="#00f0ff" stroke-width="1"/>
+                    <polygon points="60,60 100,40 100,80 60,100" fill="#141824" stroke="#00f0ff" stroke-width="2"/>
+                </svg>
+            </div>
+            <div style="text-align: center;">
+                ID Oferty: <span class="code">EP_GOLD_CUBE</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="wersje" class="tab-content">
+        <div class="box" style="max-width: 550px;">
+            <h2>🚀 Historia Wydań Silnika</h2>
+            <p style="font-size: 14px; text-align: center; color: #94a3b8;">Pobierz oficjalną paczkę ZIP środowiska 3D.</p>
+            
+            <hr style="border-color: #242942; margin: 15px 0;">
+
+            <h3>EP Forge <span class="version-tag">v1.1.0</span></h3>
+            <p style="font-size: 13px; color: #64748b; margin-top: -5px;">Opublikowano: Czerwiec 2026 r.</p>
+            
+            <div style="background-color: #0b0d14; padding: 12px; border-radius: 6px; margin-bottom: 10px; border-left: 4px solid #00f0ff;">
+                <strong style="color: #00f0ff; font-size: 13px;">📦 Instrukcja instalacji paczki ZIP:</strong>
+                <p style="font-size: 12px; color: #94a3b8; margin: 5px 0 0 0; line-height: 1.4;">
+                    1. Rozpakuj pobrane archiwum ZIP.<br>
+                    2. Wrzuć pobrany plik <strong>profil.epf</strong> do tego samego folderu.<br>
+                    3. Uruchom silnik 3D.
+                </p>
+            </div>
+
+            <ul class="changelog">
+                <li><strong>Środowisko Projektowe 3D:</strong> Pełna wizualizacja przestrzenna i manipulacja obiektami sceny.</li>
+                <li><strong>Dodawanie Kształtów (Primitives):</strong> Generowanie obiektów typu <strong>Kostka (Cube)</strong> oraz <strong>Sfera (Sphere)</strong>.</li>
+                <li><strong>System Oświetlenia:</strong> Obsługa dynamicznych punktów świetlnych (<strong>Light</strong>).</li>
+                <li><strong>Zapis i Odczyt Świata:</strong> Bezpieczne zapisywanie stworzonych scen 3D do pliku i ich wczytywanie.</li>
+            </ul>
+            
+            <button class="btn-download" style="width: 100%;" onclick="secureDownload()">
+                💾 Pobierz wersję v1.1.0 (.ZIP)
+            </button>
+        </div>
+    </div>
+
+    <script>
+        var isSubmitedAndLogged = false;
+        var activeUser = "";
+
+        // Nawigacja po ekranach autoryzacji na samym początku
+        function showAuthScreen(screen) {
+            document.getElementById("authGate").style.display = "none";
+            document.getElementById("registerFormBox").style.display = "none";
+            document.getElementById("loginFormBox").style.display = "none";
+
+            if (screen === 'gate') document.getElementById("authGate").style.display = "block";
+            if (screen === 'register') document.getElementById("registerFormBox").style.display = "block";
+            if (screen === 'login') document.getElementById("loginFormBox").style.display = "block";
+        }
+
+        // Obsługa przełączania głównych zakładek (Sklep / Wersje)
+        function openTab(tabName) {
+            var contents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < contents.length; i++) { contents[i].classList.remove("active"); }
+            var buttons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < buttons.length; i++) { buttons[i].classList.remove("active"); }
+            
+            document.getElementById(tabName).classList.add("active");
+            if(tabName === 'sklep') document.getElementById('tab-sklep').classList.add('active');
+            if(tabName === 'wersje') document.getElementById('tab-wersje').classList.add('active');
+        }
+
+        function toggleProfilePopup() {
+            var popup = document.getElementById("userProfilePopup");
+            popup.style.display = (popup.style.display === "block") ? "none" : "block";
+        }
+
+        // WŁAŚCIWE ODBLOKOWANIE STRONY (Wywoływane po sukcesie logowania/rejestracji)
+        function unlockSystem(username) {
+            isSubmitedAndLogged = true;
+            activeUser = username;
+            
+            // Ukrywamy formularze wejściowe
+            document.getElementById("registerFormBox").style.display = "none";
+            document.getElementById("loginFormBox").style.display = "none";
+            
+            // Pokazujemy menu zakładek oraz włączamy domyślną zakładkę (Sklep)
+            document.getElementById("mainTabs").style.display = "flex";
+            openTab('sklep');
+
+            // Ustawiamy profil i pokazujemy ikonę awatara po prawej stronie
+            document.getElementById("profileUsername").innerText = username;
+            document.getElementById("userProfileIcon").style.display = "flex";
+            document.getElementById("headerSubtitle").innerText = "Witaj ponownie w EP Forge, " + username + "!";
+
+            // Automatyczne pobranie bezpiecznego pliku .epf dla silnika
+            var secureToken = "TOKEN=EP_FORGE_SECURE_ACCESS_TOKEN_2026";
+            var blob = new Blob([secureToken], { type: "text/plain;charset=utf-8" });
+            var link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "profil.epf";
+            link.click();
+        }
+
+        // AKCJA: PROCES REJESTRACJI (UTWÓRZ KONTO)
+        function processRegister() {
+            var user = document.getElementById('regUser').value.trim();
+            var email = document.getElementById('regEmail').value.trim();
+            var pass = document.getElementById('regPass').value;
+            var errorDiv = document.getElementById('regError');
+
+            if (!user || !email || !pass) {
+                errorDiv.style.display = "block";
+                return;
+            }
+            errorDiv.style.display = "none";
+            
+            // Symulacja rejestracji – od razu wpuszczamy użytkownika z jego nowym loginem
+            unlockSystem(user);
+        }
+
+        // AKCJA: PROCES LOGOWANIA (MAM JUŻ KONTO)
+        function processLogin() {
+            var user = document.getElementById('webUser').value.trim();
+            var pass = document.getElementById('webPass').value;
+            var errorDiv = document.getElementById('webError');
+            
+            // Walidacja administratora projektu
+            if (user.toLowerCase() === "admin" && pass === "epforge1983") {
+                errorDiv.style.display = "none";
+                unlockSystem("admin");
+            } else {
+                errorDiv.style.display = "block";
+            }
+        }
+
+        // BEZPIECZNE POBIERANIE ZIP-A
+        function secureDownload() {
+            if (isSubmitedAndLogged) {
+                var link = document.createElement("a");
+                link.href = "EP_Forge_v1.1.0.zip";
+                link.download = "EP_Forge_v1.1.0.zip";
+                link.click();
+            } else {
+                alert("Najpierw zaloguj się lub utwórz konto dla bezpieczeństwa!");
+                showAuthScreen('gate');
+            }
+        }
+    </script>
+</body>
+</html>
