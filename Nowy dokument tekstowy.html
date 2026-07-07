@@ -7,7 +7,7 @@
         /* NOWOCZESNA, CIEMNA KOLORYSTYKA (CYBERPUNK / TECH DARK) */
         body { 
             font-family: 'Segoe UI', -apple-system, sans-serif; 
-            background-color: #0f111a; /* Głębokie, nowoczesne ciemne tło */
+            background-color: #0f111a; 
             color: #e2e8f0; 
             padding: 20px 40px; 
             text-align: center; 
@@ -15,13 +15,12 @@
         }
         
         .header { margin-bottom: 30px; position: relative; }
-        /* Neonowy błękit zamiast żółtego */
         .header h1 { color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.3); margin-bottom: 5px; }
         .header p { color: #94a3b8; }
         
-        /* PASEK ZAKŁADEK */
+        /* PASEK ZAKŁADEK - Ukryty na starcie */
         .tabs-container { 
-            display: flex; 
+            display: none; /* Pokazuje się po zalogowaniu/rejestracji */
             justify-content: center; 
             background-color: #1a1d2e; 
             border-bottom: 2px solid #00f0ff; 
@@ -47,11 +46,11 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* NOWOCZESNE KARTY (BOX) Z NEONOWYMI AKCENTAMI */
+        /* NOWOCZESNE KARTY (BOX) */
         .box { 
             background-color: #141824; 
             border: 1px solid #242942; 
-            border-top: 3px solid #00f0ff; /* Cienka linia u góry dla stylu */
+            border-top: 3px solid #00f0ff; 
             padding: 25px; 
             margin: 20px auto; 
             max-width: 450px; 
@@ -62,10 +61,10 @@
         }
         .box h2, .box h3 { text-align: center; color: #00f0ff; margin-top: 0; }
         
-        input[type="text"], input[type="password"] { 
+        input[type="text"], input[type="password"], input[type="email"] { 
             width: 100%; 
             padding: 12px; 
-            margin: 10px 0 20px 0; 
+            margin: 10px 0 15px 0; 
             border-radius: 6px; 
             border: 1px solid #242942; 
             background-color: #0b0d14; 
@@ -73,7 +72,7 @@
             box-sizing: border-box; 
             transition: border 0.2s;
         }
-        input[type="text"]:focus, input[type="password"]:focus {
+        input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
             border-color: #00f0ff;
             outline: none;
         }
@@ -83,7 +82,7 @@
             display: block; 
             width: 100%; 
             padding: 14px; 
-            background: linear-gradient(135deg, #00f0ff 0%, #7000ff 100%); /* Nowoczesny gradient */
+            background: linear-gradient(135deg, #00f0ff 0%, #7000ff 100%); 
             color: white; 
             border: none; 
             font-weight: bold; 
@@ -93,8 +92,16 @@
             font-size: 16px; 
             box-sizing: border-box; 
             transition: opacity 0.2s;
+            margin-bottom: 10px;
         }
         .btn:hover { opacity: 0.9; }
+
+        .btn-secondary {
+            background: #242942;
+            border: 1px solid #94a3b8;
+            color: #e2e8f0;
+        }
+        .btn-secondary:hover { background: #1a1d2e; }
         
         .btn-download { 
             display: block; 
@@ -123,9 +130,9 @@
         .version-tag { background-color: #0b0d14; padding: 3px 8px; border-radius: 4px; color: #00f0ff; font-family: monospace; font-weight: bold; border: 1px solid #242942; }
         .changelog { font-size: 14px; color: #94a3b8; padding-left: 20px; line-height: 1.6; }
         
-        #webError { color: #ff4a4a; text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 15px; display: none; }
+        .error-msg { color: #ff4a4a; text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 15px; display: none; }
 
-        /* SYSTEM PROFILU Z NOWĄ COLOR PALETTE */
+        /* PROFIL */
         .profile-icon {
             position: absolute; top: 10px; right: 20px;
             background-color: #00f0ff; color: #0f111a;
@@ -152,7 +159,6 @@
             100% { background-position: 200% 0; }
         }
 
-        /* Niesamowita animacja Administratora dopasowana do nowego tła */
         .admin-anim {
             font-size: 18px;
             font-weight: bold;
@@ -160,11 +166,8 @@
             letter-spacing: 1px;
             margin-top: 10px;
             display: inline-block;
-            
-            /* Srebrno-biały blask idealnie pasujący do ciemnego błękitu */
             background: linear-gradient(90deg, #00f0ff 0%, #ffffff 50%, #00f0ff 100%);
             background-size: 200% auto;
-            
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -176,143 +179,58 @@
 
     <div class="header">
         <h1>Centrum Zarządzania EP Forge</h1>
-        <p>Zabezpieczony panel autoryzacji deweloperskiej</p>
+        <p id="headerSubtitle">Zabezpieczony panel autoryzacji deweloperskiej</p>
         
         <div id="userProfileIcon" class="profile-icon" onclick="toggleProfilePopup()">👤</div>
         
         <div id="userProfilePopup" class="profile-popup">
-            <h4>Zalogowano jako: <span style="color: #00f0ff;">admin</span></h4>
+            <h4>Zalogowano jako: <span id="profileUsername" style="color: #00f0ff;">admin</span></h4>
             <div style="border-top: 1px solid #242942; margin: 10px 0;"></div>
             <div class="admin-anim">*** Administrator ***</div>
         </div>
     </div>
 
-    <div class="tabs-container">
+    <div id="authGate" class="box" style="max-width: 400px; text-align: center;">
+        <h2>⚡ Witaj w EP Forge</h2>
+        <p style="color: #94a3b8; font-size: 14px; margin-bottom: 25px;">Aby uzyskać dostęp do środowiska 3D, sklepu oraz pobierania plików, musisz posiadać konto deweloperskie.</p>
+        <button class="btn" onclick="showAuthScreen('register')">🆕 Utwórz nowe konto</button>
+        <button class="btn btn-secondary" onclick="showAuthScreen('login')">🔑 Mam już konto</button>
+    </div>
+
+    <div id="registerFormBox" class="box" style="display: none;">
+        <h2>🆕 Utwórz konto EP Forge</h2>
+        <p style="font-size: 13px; color: #94a3b8; text-align: center;">Zarejestruj się, aby natychmiast odblokować panel.</p>
+        <div id="regError" class="error-msg">❌ Proszę uzupełnić wszystkie pola!</div>
+        
+        <label>Nazwa użytkownika / Dewelopera:</label>
+        <input type="text" id="regUser" placeholder="Wpisz swój login...">
+        
+        <label>Adres E-mail:</label>
+        <input type="email" id="regEmail" placeholder="Wpisz swój e-mail...">
+        
+        <label>Hasło profilu:</label>
+        <input type="password" id="regPass" placeholder="Wymyśl bezpieczne hasło...">
+        
+        <button class="btn" onclick="processRegister()">Zarejestruj i Otwórz Panel</button>
+        <button class="btn btn-secondary" style="padding: 8px; font-size: 13px;" onclick="showAuthScreen('gate')">← Wróć</button>
+    </div>
+
+    <div id="loginFormBox" class="box" style="display: none;">
+        <h2>🔑 Logowanie deweloperskie</h2>
+        <p style="font-size: 13px; color: #94a3b8; text-align: center;">Zaloguj się swoimi danymi, aby wejść do systemu.</p>
+        <div id="webError" class="error-msg">❌ Błędna nazwa użytkownika lub hasło!</div>
+
+        <label>Nazwa dewelopera:</label>
+        <input type="text" id="webUser" placeholder="Wpisz login...">
+        
+        <label>Hasło profilu:</label>
+        <input type="password" id="webPass" placeholder="Wpisz hasło...">
+        
+        <button class="btn" onclick="processLogin()">Zaloguj i Przejdź do Sklepu</button>
+        <button class="btn btn-secondary" style="padding: 8px; font-size: 13px;" onclick="showAuthScreen('gate')">← Wróć</button>
+    </div>
+
+    <div class="tabs-container" id="mainTabs">
         <button class="tab-button active" id="tab-sklep" onclick="openTab('sklep')">🛒 Sklep</button>
         <button class="tab-button" id="tab-wersje" onclick="openTab('wersje')">📂 Wersje</button>
     </div>
-
-    <div id="sklep" class="tab-content active">
-        <div class="box" id="loginBox">
-            <h2>🔑 Logowanie do EP Forge</h2>
-            <p style="font-size: 13px; color: #94a3b8;">Zaloguj się poprawnymi danymi, aby odblokować profil i pobrać klucz dostępu (.epf).</p>
-            
-            <div id="webError">❌ Błędna nazwa użytkownika lub hasło!</div>
-
-            <label>Nazwa dewelopera:</label>
-            <input type="text" id="webUser" placeholder="Wpisz login...">
-            
-            <label>Hasło profilu:</label>
-            <input type="password" id="webPass" placeholder="Wpisz hasło...">
-            
-            <button class="btn" onclick="generateProfileFile()">Autoryzuj i Pobierz Klucz</button>
-        </div>
-
-        <div class="box">
-            <h3>Złoty Szablon Aktora</h3>
-            <div style="text-align:center; color:#00f0ff; font-weight:bold; margin-bottom:10px;">Koszt: 50 EP$</div>
-            <div class="preview-img">
-                <svg width="80" height="80" viewBox="0 0 120 120">
-                    <polygon points="60,20 100,40 60,60 20,40" fill="#00f0ff" stroke="#7000ff" stroke-width="2" opacity="0.8"/>
-                    <polygon points="20,40 60,60 60,100 20,80" fill="#7000ff" stroke="#00f0ff" stroke-width="1"/>
-                    <polygon points="60,60 100,40 100,80 60,100" fill="#141824" stroke="#00f0ff" stroke-width="2"/>
-                </svg>
-            </div>
-            <div style="text-align: center;">
-                ID Oferty: <span class="code">EP_GOLD_CUBE</span>
-            </div>
-        </div>
-    </div>
-
-    <div id="wersje" class="tab-content">
-        <div class="box" style="max-width: 550px;">
-            <h2>🚀 Historia Wydań Silnika</h2>
-            <p style="font-size: 14px; text-align: center; color: #94a3b8;">Pobierz oficjalną paczkę ZIP środowiska 3D.</p>
-            
-            <hr style="border-color: #242942; margin: 15px 0;">
-
-            <h3>EP Forge <span class="version-tag">v1.1.0</span></h3>
-            <p style="font-size: 13px; color: #64748b; margin-top: -5px;">Opublikowano: Czerwiec 2026 r.</p>
-            
-            <div style="background-color: #0b0d14; padding: 12px; border-radius: 6px; margin-bottom: 10px; border-left: 4px solid #00f0ff;">
-                <strong style="color: #00f0ff; font-size: 13px;">📦 Instrukcja instalacji paczki ZIP:</strong>
-                <p style="font-size: 12px; color: #94a3b8; margin: 5px 0 0 0; line-height: 1.4;">
-                    1. Zaloguj się w zakładce Sklep.<br>
-                    2. Pobierz archiwum ZIP za pomocą przycisku poniżej.<br>
-                    3. Wyodrębnij wszystko i uruchom silnik.
-                </p>
-            </div>
-
-            <ul class="changelog">
-                <li><strong>Środowisko Projektowe 3D:</strong> Pełna wizualizacja przestrzenna i manipulacja obiektami sceny.</li>
-                <li><strong>Dodawanie Kształtów (Primitives):</strong> Generowanie obiektów typu <strong>Kostka (Cube)</strong> oraz <strong>Sfera (Sphere)</strong>.</li>
-                <li><strong>System Oświetlenia:</strong> Obsługa dynamicznych punktów świetlnych (<strong>Light</strong>).</li>
-                <li><strong>Zapis i Odczyt Świata:</strong> Bezpieczne zapisywanie stworzonych scen 3D do pliku i ich wczytywanie.</li>
-            </ul>
-            
-            <button class="btn-download" style="width: 100%;" onclick="secureDownload()">
-                💾 Pobierz wersję v1.1.0 (.ZIP)
-            </button>
-        </div>
-    </div>
-
-    <script>
-        // Zmienna pamiętająca stan zalogowania
-        var isSubmitedAndLogged = false;
-
-        function openTab(tabName) {
-            var contents = document.getElementsByClassName("tab-content");
-            for (var i = 0; i < contents.length; i++) { contents[i].classList.remove("active"); }
-            var buttons = document.getElementsByClassName("tab-button");
-            for (var i = 0; i < buttons.length; i++) { buttons[i].classList.remove("active"); }
-            
-            document.getElementById(tabName).classList.add("active");
-            if(tabName === 'sklep') document.getElementById('tab-sklep').classList.add('active');
-            if(tabName === 'wersje') document.getElementById('tab-wersje').classList.add('active');
-        }
-
-        function toggleProfilePopup() {
-            var popup = document.getElementById("userProfilePopup");
-            popup.style.display = (popup.style.display === "block") ? "none" : "block";
-        }
-
-        function generateProfileFile() {
-            var user = document.getElementById('webUser').value.trim();
-            var pass = document.getElementById('webPass').value;
-            var errorDiv = document.getElementById('webError');
-            
-            if (user.toLowerCase() === "admin" && pass === "epforge1983") {
-                errorDiv.style.display = "none";
-                isSubmitedAndLogged = true; // UŻYTKOWNIK ZALOGOWANY!
-                
-                document.getElementById("userProfileIcon").style.display = "flex";
-                document.getElementById("loginBox").innerHTML = "<h2>✅ Autoryzacja udana!</h2><p style='text-align:center; color:#38bdf8;'>Profil Administratora aktywny. Plik klucza profilu został pobrany na Twój komputer.</p>";
-
-                var secureToken = "TOKEN=EP_FORGE_SECURE_ACCESS_TOKEN_2026";
-                var blob = new Blob([secureToken], { type: "text/plain;charset=utf-8" });
-                var link = document.createElement("a");
-                link.href = URL.createObjectURL(blob);
-                link.download = "profil.epf";
-                link.click();
-            } else {
-                errorDiv.style.display = "block";
-            }
-        }
-
-        /* FUNKCJA BEZPIECZNEGO POBIERANIA ZIP-A */
-        function secureDownload() {
-            if (isSubmitedAndLogged) {
-                // Jeśli zalogowany, tworzymy niewidzialny link i pobieramy plik ZIP
-                var link = document.createElement("a");
-                link.href = "EP_Forge_v1.1.0.zip";
-                link.download = "EP_Forge_v1.1.0.zip";
-                link.click();
-            } else {
-                // Jeśli NIEZALOGOWANY – blokada, alert i powrót do logowania
-                alert("Najpierw zaloguj się dla bezpieczeństwa!");
-                openTab('sklep');
-            }
-        }
-    </script>
-</body>
-</html>                                        
