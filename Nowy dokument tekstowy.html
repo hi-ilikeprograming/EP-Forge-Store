@@ -5,8 +5,6 @@
     <title>EP Forge - Panel Dewelopera</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background-color: #1e222b; color: white; padding: 20px 40px; text-align: center; margin: 0; }
-        
-        /* STYLIZACJA NAGŁÓWKA I ZAKŁADEK U GÓRY */
         .header { margin-bottom: 30px; }
         .header h1 { color: #f2aa4c; margin-bottom: 5px; }
         
@@ -15,55 +13,57 @@
         .tab-button:hover { background-color: #353b4a; color: white; }
         .tab-button.active { background-color: #f2aa4c; color: #1e222b; }
 
-        /* KONTENERY NA ZAWARTOŚĆ ZAKŁADEK */
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* STYLIZACJA BLOKÓW/SEKCJI */
         .box { background-color: #2b303c; border: 2px solid #f2aa4c; padding: 20px; margin: 20px auto; max-width: 450px; border-radius: 8px; text-align: left; }
         .box h2, .box h3 { text-align: center; color: #f2aa4c; margin-top: 0; }
         
-        input[type="text"], input[type="password"] { width: 95%; padding: 10px; margin: 10px 0; border-radius: 4px; border: 1px solid #3d4454; background-color: #15181f; color: white; }
-        .btn { display: block; width: 100%; padding: 12px; background-color: #f2aa4c; color: #1e222b; border: none; font-weight: bold; border-radius: 4px; cursor: pointer; text-align: center; font-size: 16px; }
+        input[type="text"], input[type="password"] { width: 95%; padding: 10px; margin: 10px 0; border-radius: 4px; border: 1px solid #3d4454; background-color: #15181f; color: white; box-sizing: border-box; }
+        
+        .btn { display: block; width: 100%; padding: 12px; background-color: #f2aa4c; color: #1e222b; border: none; font-weight: bold; border-radius: 4px; cursor: pointer; text-align: center; font-size: 16px; box-sizing: border-box; }
         .btn:hover { background-color: #e09634; }
+        
+        .btn-download { display: block; padding: 12px; background-color: #f2aa4c; color: #1e222b; text-decoration: none; font-weight: bold; border-radius: 4px; text-align: center; font-size: 14px; margin-top: 15px; transition: background 0.2s; }
+        .btn-download:hover { background-color: #e09634; color: #1e222b; }
         
         .code { font-family: monospace; background-color: #111; padding: 5px 10px; color: #70d278; font-size: 18px; border-radius: 4px; }
         .preview-img { width: 100%; height: 120px; background-color: #15181f; margin-bottom: 15px; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
         
-        /* STYLIZACJA WERSJI */
         .version-tag { background-color: #111; padding: 3px 8px; border-radius: 4px; color: #70d278; font-family: monospace; font-weight: bold; }
         .changelog { font-size: 14px; color: #cbd5e1; padding-left: 20px; line-height: 1.6; }
+        
+        #webError { color: #ff6b6b; text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 10px; display: none; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <h1>Centrum Zarządzania EP Forge</h1>
-        <p>Zaloguj się, pobierz swój profil i zarządzaj projektami</p>
+        <p>Zabezpieczony panel autoryzacji deweloperskiej</p>
     </div>
 
-    <!-- PASEK ZAKŁADEK U GÓRY -->
     <div class="tabs-container">
         <button class="tab-button active" onclick="openTab('sklep')">🛒 Sklep</button>
         <button class="tab-button" onclick="openTab('wersje')">📂 Wersje</button>
     </div>
 
-    <!-- ========================================== -->
-    <!-- ZAKŁADKA 1: SKLEP                          -->
-    <!-- ========================================== -->
     <div id="sklep" class="tab-content active">
-        <!-- Panel logowania/generowania profilu ukryty w sklepie -->
         <div class="box">
-            <h2>🔑 Profil Dewelopera</h2>
-            <p style="font-size: 13px; color: #cbd5e1;">Pobierz plik profilu i wrzuć do folderu ze swoim programem, aby zalogować się automatycznie w Hubie.</p>
+            <h2>🔑 Logowanie do EP Forge</h2>
+            <p style="font-size: 13px; color: #cbd5e1;">Zaloguj się poprawnymi danymi, aby wygenerować bezpieczny klucz dostępu (.epf) dla swojego silnika.</p>
+            
+            <div id="webError">❌ Błędna nazwa użytkownika lub hasło!</div>
+
             <label>Nazwa dewelopera:</label>
-            <input type="text" id="webUser" value="admin">
+            <input type="text" id="webUser" placeholder="Wpisz login...">
+            
             <label>Hasło profilu:</label>
-            <input type="password" id="webPass" value="epforge1983">
-            <button class="btn" onclick="generateProfileFile()">Pobierz klucz (.epf)</button>
+            <input type="password" id="webPass" placeholder="Wpisz hasło...">
+            
+            <button class="btn" onclick="generateProfileFile()">Autoryzuj i Pobierz Klucz</button>
         </div>
 
-        <!-- Przedmiot w sklepie -->
         <div class="box">
             <h3>Złoty Szablon Aktora</h3>
             <div style="text-align:center; color:#f2aa4c; font-weight:bold; margin-bottom:10px;">Koszt: 50 EP$</div>
@@ -80,73 +80,76 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- ZAKŁADKA 2: WERSJE                         -->
-    <!-- ========================================== -->
     <div id="wersje" class="tab-content">
-        <div class="box">
+        <div class="box" style="max-width: 550px;">
             <h2>🚀 Historia Wydań Silnika</h2>
-            <p style="font-size: 14px; text-align: center; color: #cbd5e1;">Tutaj znajdziesz najnowsze aktualizacje Twojego środowiska programistycznego.</p>
+            <p style="font-size: 14px; text-align: center; color: #cbd5e1;">Pobierz oficjalne paczki ZIP i rozpakuj na swoim komputerze.</p>
+            
             <hr style="border-color: #3d4454; margin: 15px 0;">
             
-            <!-- Aktualna wersja -->
             <h3>EP Forge <span class="version-tag">v1.2.0</span></h3>
             <p style="font-size: 13px; color: #a0aec0; margin-top: -5px;">Opublikowano: Lipiec 2026 r.</p>
             <ul class="changelog">
-                <li>Dodano nowy, bezpieczny system logowania bezpośrednio z profilu WWW.</li>
-                <li>Zintegrowano obsługę plików konfiguracyjnych <span class="version-tag">.epf</span> do automatycznego logowania w Hubie.</li>
-                <li>Poprawiono renderowanie podglądów wektorowych w sklepie internetowym.</li>
+                <li>Wprowadzono system bezpiecznych tokenów sesyjnych (zabezpieczenie logowania).</li>
+                <li>Zablokowano pobieranie kluczy profilu bez poprawnej autoryzacji na stronie.</li>
             </ul>
+            <a href="EP_Forge_v1.2.0.zip" download="EP_Forge_v1.2.0.zip" class="btn-download">
+                💾 Pobierz wersję v1.2.0 (.ZIP)
+            </a>
             
-            <hr style="border-color: #3d4454; margin: 15px 0;">
+            <hr style="border-color: #3d4454; margin: 25px 0;">
 
-            <!-- Starsza wersja -->
-            <h3 style="color: #a0aec0;">EP Forge <span class="version-tag" style="color: #888;">v1.1.0</span></h3>
-            <ul class="changelog" style="color: #94a3b8;">
-                <li>Wprowadzenie Huba startowego do zarządzania listą projektów gier.</li>
-                <li>Pierwsze testy modułu sklepu z ofertami dla deweloperów.</li>
+            <h3 style="color: #cbd5e1;">EP Forge <span class="version-tag" style="background-color: #4a5568; color: #e2e8f0;">v1.1.0</span></h3>
+            <p style="font-size: 13px; color: #a0aec0; margin-top: -5px;">Opublikowano: Czerwiec 2026 r.</p>
+            
+            <div style="background-color: #1c1f26; padding: 12px; border-radius: 6px; margin-bottom: 10px; border-left: 4px solid #f2aa4c;">
+                <strong style="color: #f2aa4c; font-size: 13px;">📦 Instrukcja instalacji paczki ZIP:</strong>
+                <p style="font-size: 12px; color: #cbd5e1; margin: 5px 0 0 0; line-height: 1.4;">
+                    1. Kliknij przycisk poniżej, aby pobrać archiwum ZIP.<br>
+                    2. Kliknij na pobrany plik prawym przyciskiem myszy i wybierz <strong>"Wyodrębnij wszystko"</strong>.<br>
+                    3. Przenieś rozpakowany folder w swoje ulubione miejsce na dysku i uruchom <strong>EPForgeHub.exe</strong>.
+                </p>
+            </div>
+
+            <ul class="changelog" style="color: #a0aec0;">
+                <li><strong>Wprowadzenie EP Forge Hub:</strong> Pierwszy graficzny panel startowy ułatwiający zarządzanie listą projektów gier.</li>
+                <li><strong>Moduł Sklepu:</strong> Pierwsze testy wewnętrznej bazy ofert oraz systemu obsługi waluty EP$ (Epusów).</li>
+                <li><strong>System szablonów:</strong> Dodanie gotowych makiet startowych (Platformer Starter, Lighting Demo).</li>
             </ul>
+            <a href="EP_Forge_v1.1.0.zip" download="EP_Forge_v1.1.0.zip" class="btn-download" style="background-color: #a0aec0; color: #1e222b;">
+                💾 Pobierz wersję v1.1.0 (.ZIP)
+            </a>
         </div>
     </div>
 
-    <!-- JAVASCRIPT DO OBSŁUGI ZAKŁADEK I GENEROWANIA PLIKU -->
     <script>
-        // Funkcja przełączająca zakładki
         function openTab(tabName) {
-            // Ukryj całą zawartość
             var contents = document.getElementsByClassName("tab-content");
-            for (var i = 0; i < contents.length; i++) {
-                contents[i].classList.remove("active");
-            }
-            
-            // Dezaktywuj wszystkie przyciski zakładek
+            for (var i = 0; i < contents.length; i++) { contents[i].classList.remove("active"); }
             var buttons = document.getElementsByClassName("tab-button");
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove("active");
-            }
-            
-            // Pokaż wybraną zakładkę i zaznacz jej przycisk
+            for (var i = 0; i < buttons.length; i++) { buttons[i].classList.remove("active"); }
             document.getElementById(tabName).classList.add("active");
             event.currentTarget.classList.add("active");
         }
 
-        // Funkcja generowania pliku profilu .epf
         function generateProfileFile() {
-            var user = document.getElementById('webUser').value;
+            var user = document.getElementById('webUser').value.trim();
             var pass = document.getElementById('webPass').value;
+            var errorDiv = document.getElementById('webError');
             
-            if(!user || !pass) {
-                alert('Uzupełnij pola logowania!');
-                return;
+            if (user.toLowerCase() === "admin" && pass === "epforge1983") {
+                errorDiv.style.display = "none";
+                
+                var secureToken = "TOKEN=EP_FORGE_SECURE_ACCESS_TOKEN_2026";
+                var blob = new Blob([secureToken], { type: "text/plain;charset=utf-8" });
+                
+                var link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "profil.epf";
+                link.click();
+            } else {
+                errorDiv.style.display = "block";
             }
-            
-            var fileContent = "USER=" + user + "\nPASS=" + pass;
-            var blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
-            
-            var link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "profil.epf";
-            link.click();
         }
     </script>
 </body>
