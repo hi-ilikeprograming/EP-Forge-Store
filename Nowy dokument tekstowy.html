@@ -18,7 +18,7 @@
         .header h1 { color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.3); margin-bottom: 5px; }
         .header p { color: #94a3b8; }
         
-        /* PASEK ZAKŁADEK - Ukryty na starcie */
+        /* PASEK ZAKŁADEK */
         .tabs-container { 
             display: none; 
             justify-content: center; 
@@ -159,19 +159,18 @@
             100% { background-position: 200% 0; }
         }
 
-        .admin-anim {
-            font-size: 18px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 10px;
-            display: inline-block;
-            background: linear-gradient(90deg, #00f0ff 0%, #ffffff 50%, #00f0ff 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        /* 1. STYL DLA ADMINISTRATORA (Z ANIMACJĄ) */
+        .admin-role {
+            font-size: 17px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; display: inline-block;
+            background: linear-gradient(90deg, #00f0ff 0%, #ffffff 50%, #00f0ff 100%); background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
             animation: shine 2.5s linear infinite;
+        }
+
+        /* 2. STYL DLA NOWEGO UŻYTKOWNIKA (PROSTY, ELEGANCKI) */
+        .user-role {
+            font-size: 15px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; display: inline-block;
+            color: #94a3b8; border: 1px dashed #242942; padding: 4px 10px; border-radius: 4px;
         }
     </style>
 </head>
@@ -186,22 +185,18 @@
         <div id="userProfilePopup" class="profile-popup">
             <h4>Zalogowano jako: <span id="profileUsername" style="color: #00f0ff;">admin</span></h4>
             <div style="border-top: 1px solid #242942; margin: 10px 0;"></div>
-            <div class="admin-anim">*** Administrator ***</div>
+            <div id="profileRole"></div>
         </div>
     </div>
 
-    <!-- EKRAN STARTOWY (BRAMKA WEJŚCIOWA) -->
     <div id="authGate" class="box" style="max-width: 400px; text-align: center;">
         <h2>⚡ Witaj w EP Forge</h2>
         <p style="color: #94a3b8; font-size: 14px; margin-bottom: 25px;">Aby uzyskać dostęp do środowiska 3D, sklepu oraz pobierania plików, musisz posiadać konto deweloperskie.</p>
         
         <button class="btn" onclick="showRegisterForm()">🆕 Utwórz nowe konto</button>
-        
-        <!-- Kliknięcie od razu przenosi na stronę główną, ale bez zalogowania! -->
         <button class="btn btn-secondary" onclick="enterAsGuest()">🔑 Mam już konto</button>
     </div>
 
-    <!-- FORMULARZ REJESTRACJI (UKRYTY NA STARCIE, POKAZUJE SIĘ PO KLIKNIĘCIU "UTWÓRZ KONTO") -->
     <div id="registerFormBox" class="box" style="display: none;">
         <h2>🆕 Utwórz konto EP Forge</h2>
         <p style="font-size: 13px; color: #94a3b8; text-align: center;">Zarejestruj się, aby natychmiast odblokować panel.</p>
@@ -220,15 +215,12 @@
         <button class="btn btn-secondary" style="padding: 8px; font-size: 13px;" onclick="goBackToGate()">← Wróć</button>
     </div>
 
-    <!-- PASEK ZAKŁADEK (POKAZUJE SIĘ PO WEJŚCIU NA STRONĘ GŁÓWNĄ) -->
     <div class="tabs-container" id="mainTabs">
         <button class="tab-button active" id="tab-sklep" onclick="openTab('sklep')">🛒 Sklep</button>
         <button class="tab-button" id="tab-wersje" onclick="openTab('wersje')">📂 Wersje</button>
     </div>
 
-    <!-- ZAWARTOŚĆ STRONY: ZAKŁADKA SKLEP -->
     <div id="sklep" class="tab-content">
-        <!-- Ten panel logowania wyświetla się na stronie głównej dopóki użytkownik się nie zaloguje -->
         <div class="box" id="mainLoginBox">
             <h2>🔑 Zaloguj się na swoje konto</h2>
             <p style="font-size: 13px; color: #94a3b8; text-align: center;">Wpisz dane swojego istniejącego konta, aby aktywować profil administratora i pobieranie.</p>
@@ -259,7 +251,6 @@
         </div>
     </div>
 
-    <!-- ZAWARTOŚĆ STRONY: ZAKŁADKA WERSJE -->
     <div id="wersje" class="tab-content">
         <div class="box" style="max-width: 550px;">
             <h2>🚀 Historia Wydań Silnika</h2>
@@ -286,14 +277,12 @@
                 <li><strong>Zapis i Odczyt Świata:</strong> Bezpieczne zapisywanie stworzonych scen 3D do pliku i ich wczytywanie.</li>
             </ul>
             
-            <!-- Bezpieczny przycisk, który pilnuje zalogowania -->
             <button class="btn-download" style="width: 100%;" onclick="secureDownload()">
                 💾 Pobierz wersję v1.1.0 (.ZIP)
             </button>
         </div>
     </div>
 
-    <!-- SKRYPTY JAVASCRIPT -->
     <script>
         var isSubmitedAndLogged = false;
         var activeUser = "";
@@ -308,11 +297,10 @@
             document.getElementById("authGate").style.display = "block";
         }
 
-        // 1. CHODZENIE JAKO GOŚĆ (Po kliknięciu "Mam już konto")
         function enterAsGuest() {
             document.getElementById("authGate").style.display = "none";
             document.getElementById("mainTabs").style.display = "flex";
-            openTab('sklep'); // Wchodzimy na stronę główną, ale profil wciąż jest zablokowany!
+            openTab('sklep');
         }
 
         function openTab(tabName) {
@@ -331,20 +319,26 @@
             popup.style.display = (popup.style.display === "block") ? "none" : "block";
         }
 
-        // 2. FUNKCJA PEŁNEGO LOGOWANIA / ODBLOKOWANIA (Wspólna dla formularzy)
-        function loginSuccess(username) {
+        // AKTYWACJA I DOPASOWANIE RANGI (isAdmin decyduje o wyglądzie)
+        function loginSuccess(username, isAdmin) {
             isSubmitedAndLogged = true;
             activeUser = username;
             
-            // Zamieniamy okienko logowania w zakładce Sklep na komunikat o sukcesie
-            document.getElementById("mainLoginBox").innerHTML = "<h2>✅ Zalogowano pomyślnie!</h2><p style='text-align:center; color:#38bdf8;'>Witaj z powrotem! Profil Administratora jest aktywny w prawym górnym rogu strony. Zabezpieczony plik klucza profilu został pobrany.</p>";
+            document.getElementById("mainLoginBox").innerHTML = "<h2>✅ Zalogowano pomyślnie!</h2><p style='text-align:center; color:#38bdf8;'>Witaj z powrotem! Twój profil jest aktywny w prawym górnym rogu strony. Zabezpieczony plik klucza (.epf) został pobrany.</p>";
 
-            // Pokazujemy niesamowity profil dewelopera po prawej stronie u góry
             document.getElementById("profileUsername").innerText = username;
             document.getElementById("userProfileIcon").style.display = "flex";
             document.getElementById("headerSubtitle").innerText = "Witaj w EP Forge, " + username + "!";
 
-            // Pobieramy plik profilu deweloperskiego
+            // PRZYPISYWANIE ODPOWIEDNIEJ RANGI
+            var roleContainer = document.getElementById("profileRole");
+            if (isAdmin) {
+                roleContainer.innerHTML = '<div class="admin-role">*** Administrator ***</div>';
+            } else {
+                roleContainer.innerHTML = '<div class="user-role">* Nowy Użytkownik *</div>';
+            }
+
+            // Pobieranie klucza dostępu
             var secureToken = "TOKEN=EP_FORGE_SECURE_ACCESS_TOKEN_2026";
             var blob = new Blob([secureToken], { type: "text/plain;charset=utf-8" });
             var link = document.createElement("a");
@@ -353,7 +347,7 @@
             link.click();
         }
 
-        // AKCJA: REJESTRACJA NOWEGO KONTA
+        // REJESTRACJA NOWEGO (ZWYKŁEGO) UŻYTKOWNIKA
         function processRegister() {
             var user = document.getElementById('regUser').value.trim();
             var email = document.getElementById('regEmail').value.trim();
@@ -366,13 +360,14 @@
             }
             errorDiv.style.display = "none";
             
-            // Rejestracja automatycznie ukrywa cały panel rejestracji i odpala system
             document.getElementById("registerFormBox").style.display = "none";
             document.getElementById("mainTabs").style.display = "flex";
-            loginSuccess(user);
+            
+            // False oznacza, że to NIE JEST admin
+            loginSuccess(user, false); 
         }
 
-        // AKCJA: LOGOWANIE NA ISTNIEJĄCE KONTO (Z POZIOMU STRONY GŁÓWNEJ)
+        // LOGOWANIE NA ISTNIEJĄCE KONTO ADMINA
         function processLogin() {
             var user = document.getElementById('webUser').value.trim();
             var pass = document.getElementById('webPass').value;
@@ -380,13 +375,13 @@
             
             if (user.toLowerCase() === "admin" && pass === "epforge1983") {
                 errorDiv.style.display = "none";
-                loginSuccess("admin");
+                // True oznacza, że TO JEST admin (włącza animację błysku)
+                loginSuccess("admin", true);
             } else {
                 errorDiv.style.display = "block";
             }
         }
 
-        // BEZPIECZNE POBIERANIE ZIP-A
         function secureDownload() {
             if (isSubmitedAndLogged) {
                 var link = document.createElement("a");
@@ -394,9 +389,8 @@
                 link.download = "EP_Forge_v1.1.0.zip";
                 link.click();
             } else {
-                // Jeśli ktoś wejdzie bez zalogowania i kliknie pobierz:
                 alert("Najpierw zaloguj się dla bezpieczeństwa!");
-                openTab('sklep'); // Przerzuca użytkownika do zakładki Sklep, prosto do okienka logowania!
+                openTab('sklep');
             }
         }
     </script>
