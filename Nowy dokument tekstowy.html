@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App for the / EP Forge - Panel Dewelopera</title>
+    <title>EP Forge - Panel Dewelopera</title>
     <style>
-        /* NOWOCZESNA, CIEMNA KOLORYSTYKA (CYBERPUNK / TECH DARK) */
+        /* MINIMALISTYCZNA BIAŁO-CZARNA KOLORYSTYKA (MONOCHROME / LIGHT) */
         body { 
-            font-family: 'Segoe UI', -apple-system, sans-serif; 
-            background-color: #0f111a; /* Głębokie, nowoczesne ciemne tło */
-            color: #e2e8f0; 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; 
+            background-color: #f8f9fa; 
+            color: #111111; 
             padding: 20px 40px; 
             text-align: center; 
             margin: 0; 
@@ -20,94 +20,94 @@
         }
         
         .header { margin-bottom: 30px; position: relative; }
-        .header h1 { color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.3); margin-bottom: 5px; }
-        .header p { color: #94a3b8; }
+        .header h1 { color: #000000; letter-spacing: -0.5px; margin-bottom: 5px; font-weight: 800; }
+        .header p { color: #666666; }
         
         /* PASEK ZAKŁADEK */
         .tabs-container { 
             display: flex; 
             justify-content: center; 
-            background-color: #1a1d2e; 
-            border-bottom: 2px solid #00f0ff; 
-            max-width: 650px; 
+            background-color: #ffffff; 
+            border: 2px solid #000000; 
+            max-width: 550px; 
             margin: 0 auto 30px auto; 
-            border-radius: 8px 8px 0 0; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-radius: 8px; 
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         .tab-button { 
             background: none; 
             border: none; 
-            color: #94a3b8; 
+            color: #555555; 
             padding: 15px 20px; 
             font-size: 15px; 
-            font-weight: bold; 
+            font-weight: 700; 
             cursor: pointer; 
-            transition: all 0.3s; 
+            transition: all 0.2s; 
             flex: 1; 
         }
-        .tab-button:hover { background-color: #242942; color: #fff; }
-        .tab-button.active { background-color: #00f0ff; color: #0f111a; }
+        .tab-button:hover { background-color: #f1f1f1; color: #000; }
+        .tab-button.active { background-color: #000000; color: #ffffff; }
 
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* KARTY / BOXES Z NEONOWYMI AKCENTAMI */
+        /* KARTY / BOXES MONOCHROME */
         .box { 
-            background-color: #141824; 
-            border: 1px solid #242942; 
-            border-top: 3px solid #00f0ff; 
+            background-color: #ffffff; 
+            border: 2px solid #000000; 
             padding: 25px; 
             margin: 20px auto; 
-            max-width: 500px; 
+            max-width: 480px; 
             border-radius: 8px; 
             text-align: left; 
             position: relative; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
         }
-        .box h2, .box h3 { text-align: center; color: #00f0ff; margin-top: 0; }
+        .box h2, .box h3 { text-align: center; color: #000000; margin-top: 0; }
         
         input[type="text"], input[type="password"] { 
             width: 100%; 
             padding: 12px; 
             margin: 10px 0 20px 0; 
             border-radius: 6px; 
-            border: 1px solid #242942; 
-            background-color: #0b0d14; 
-            color: white; 
+            border: 1px solid #cccccc; 
+            background-color: #ffffff; 
+            color: #000000; 
             box-sizing: border-box; 
             transition: border 0.2s;
         }
         input[type="text"]:focus, input[type="password"]:focus {
-            border-color: #00f0ff;
+            border-color: #000000;
             outline: none;
         }
         
-        /* PRZYCISKI */
+        /* PRZYCISKI BIAŁO-CZARNE */
         .btn { 
             display: block; 
             width: 100%; 
             padding: 14px; 
-            background: linear-gradient(135deg, #00f0ff 0%, #7000ff 100%); 
-            color: white; 
-            border: none; 
-            font-weight: bold; 
+            background-color: #000000; 
+            color: #ffffff; 
+            border: 2px solid #000000; 
+            font-weight: 700; 
             border-radius: 6px; 
             cursor: pointer; 
             text-align: center; 
-            font-size: 16px; 
+            font-size: 15px; 
             box-sizing: border-box; 
-            transition: opacity 0.2s;
+            transition: all 0.2s;
         }
-        .btn:hover { opacity: 0.9; }
+        .btn:hover { background-color: #333333; border-color: #333333; }
         
         .btn-download { 
             display: block; 
             padding: 14px; 
-            background-color: #242942; 
-            color: #00f0ff; 
-            border: 1px solid #00f0ff;
+            background-color: #ffffff; 
+            color: #000000; 
+            border: 2px solid #000000;
             text-decoration: none; 
-            font-weight: bold; 
+            font-weight: 700; 
             border-radius: 6px; 
             text-align: center; 
             font-size: 14px; 
@@ -118,66 +118,54 @@
             box-sizing: border-box;
         }
         .btn-download:hover { 
-            background-color: #00f0ff; 
-            color: #0f111a; 
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            background-color: #000000; 
+            color: #ffffff; 
         }
         
-        .code { font-family: monospace; background-color: #0b0d14; padding: 5px 10px; color: #38bdf8; font-size: 18px; border-radius: 4px; border: 1px solid #242942; }
-        .preview-img { width: 100%; height: 120px; background-color: #0b0d14; margin-bottom: 15px; border-radius: 6px; display: flex; align-items: center; justify-content: center; border: 1px solid #242942; }
+        .code { font-family: monospace; background-color: #f1f1f1; padding: 5px 10px; color: #000000; font-size: 16px; border-radius: 4px; border: 1px solid #cccccc; }
+        .preview-img { width: 100%; height: 120px; background-color: #f8f9fa; margin-bottom: 15px; border-radius: 6px; display: flex; align-items: center; justify-content: center; border: 1px solid #e0e0e0; }
         
-        .version-tag { background-color: #0b0d14; padding: 3px 8px; border-radius: 4px; color: #00f0ff; font-family: monospace; font-weight: bold; border: 1px solid #242942; }
-        .changelog { font-size: 14px; color: #94a3b8; padding-left: 20px; line-height: 1.6; }
+        .version-tag { background-color: #000000; padding: 3px 8px; border-radius: 4px; color: #ffffff; font-family: monospace; font-weight: bold; }
+        .changelog { font-size: 14px; color: #444444; padding-left: 20px; line-height: 1.6; }
         
-        #webError { color: #ff4a4a; text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 15px; display: none; }
+        #webError { color: #d32f2f; text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 15px; display: none; }
 
         /* PROFIL UŻYTKOWNIKA */
         .profile-icon {
             position: absolute; top: 10px; right: 20px;
-            background-color: #00f0ff; color: #0f111a;
+            background-color: #000000; color: #ffffff;
             width: 45px; height: 45px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 20px; cursor: pointer; font-weight: bold;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
             display: none; 
             transition: transform 0.2s;
         }
-        .profile-icon:hover { transform: scale(1.1); }
+        .profile-icon:hover { transform: scale(1.08); }
 
         .profile-popup {
             position: absolute; top: 65px; right: 20px;
-            background-color: #141824; border: 1px solid #00f0ff;
-            padding: 15px; border-radius: 8px; width: 260px;
-            text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            background-color: #ffffff; border: 2px solid #000000;
+            padding: 15px; border-radius: 8px; width: 250px;
+            text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             z-index: 100; display: none;
         }
-        .profile-popup h4 { margin: 0 0 5px 0; color: white; font-size: 16px; }
-
-        @keyframes shine {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
+        .profile-popup h4 { margin: 0 0 5px 0; color: #000000; font-size: 16px; }
 
         .admin-anim {
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 16px;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: 10px;
+            margin-top: 8px;
             display: inline-block;
-            background: linear-gradient(90deg, #00f0ff 0%, #ffffff 50%, #00f0ff 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shine 2.5s linear infinite;
+            color: #000000;
         }
 
         footer {
             margin-top: 40px;
             padding: 20px 0;
-            border-top: 1px solid #242942;
-            color: #94a3b8;
+            border-top: 1px solid #e0e0e0;
+            color: #777777;
             font-size: 13px;
         }
     </style>
@@ -186,37 +174,36 @@
 
     <div>
         <div class="header">
-            <h1>App for the / EP Forge</h1>
-            <p>Panel Autoryzacji Deweloperskiej i Dystrybucji Plików</p>
+            <h1>EP Forge</h1>
+            <p>Panel Autoryzacji Deweloperskiej i Silnika API</p>
             
             <div id="userProfileIcon" class="profile-icon" onclick="toggleProfilePopup()">👤</div>
             
             <div id="userProfilePopup" class="profile-popup">
-                <h4>Zalogowano jako: <span style="color: #00f0ff;">admin</span></h4>
-                <div style="border-top: 1px solid #242942; margin: 10px 0;"></div>
+                <h4>Zalogowano jako: <span style="color: #000000; font-weight: bold;">admin</span></h4>
+                <div style="border-top: 1px solid #e0e0e0; margin: 10px 0;"></div>
                 <div class="admin-anim">*** Administrator ***</div>
             </div>
         </div>
 
         <!-- PASEK ZAKŁADEK -->
         <div class="tabs-container">
-            <button class="tab-button active" id="tab-sklep" onclick="openTab('sklep')">🔑 Logowanie / Sklep</button>
-            <button class="tab-button" id="tab-jar" onclick="openTab('jar')">☕ Plik (.JAR)</button>
-            <button class="tab-button" id="tab-wersje" onclick="openTab('wersje')">📂 Paczki i Wersje</button>
+            <button class="tab-button active" id="tab-sklep" onclick="openTab('sklep')">🔑 Logowanie i Sklep</button>
+            <button class="tab-button" id="tab-wersje" onclick="openTab('wersje')">⚙️ Silnik API for J</button>
         </div>
 
         <!-- ZAKŁADKA 1: LOGOWANIE I SKLEP -->
         <div id="sklep" class="tab-content active">
             <div class="box" id="loginBox">
-                <h2>🔑 Logowanie do Panelu</h2>
-                <p style="font-size: 13px; color: #94a3b8;">Zaloguj się poprawnymi danymi, aby odblokować profil i pobrać klucz dostępu (.epf).</p>
+                <h2>🔑 Logowanie do EP Forge</h2>
+                <p style="font-size: 13px; color: #666666;">Zaloguj się poprawnymi danymi, aby odblokować profil i pobrać klucz dostępu (.epf).</p>
                 
                 <div id="webError">❌ Błędna nazwa użytkownika lub hasło!</div>
 
-                <label style="font-size: 13px; color: #94a3b8;">Nazwa dewelopera:</label>
+                <label style="font-size: 13px; color: #333333; font-weight: bold;">Nazwa dewelopera:</label>
                 <input type="text" id="webUser" placeholder="Wpisz login...">
                 
-                <label style="font-size: 13px; color: #94a3b8;">Hasło profilu:</label>
+                <label style="font-size: 13px; color: #333333; font-weight: bold;">Hasło profilu:</label>
                 <input type="password" id="webPass" placeholder="Wpisz hasło...">
                 
                 <button class="btn" onclick="generateProfileFile()">Autoryzuj i Pobierz Klucz (.epf)</button>
@@ -224,12 +211,12 @@
 
             <div class="box">
                 <h3>Złoty Szablon Aktora</h3>
-                <div style="text-align:center; color:#00f0ff; font-weight:bold; margin-bottom:10px;">Koszt: 50 EP$</div>
+                <div style="text-align:center; color:#000000; font-weight:bold; margin-bottom:10px;">Koszt: 50 EP$</div>
                 <div class="preview-img">
                     <svg width="80" height="80" viewBox="0 0 120 120">
-                        <polygon points="60,20 100,40 60,60 20,40" fill="#00f0ff" stroke="#7000ff" stroke-width="2" opacity="0.8"/>
-                        <polygon points="20,40 60,60 60,100 20,80" fill="#7000ff" stroke="#00f0ff" stroke-width="1"/>
-                        <polygon points="60,60 100,40 100,80 60,100" fill="#141824" stroke="#00f0ff" stroke-width="2"/>
+                        <polygon points="60,20 100,40 60,60 20,40" fill="#000000" stroke="#000000" stroke-width="2"/>
+                        <polygon points="20,40 60,60 60,100 20,80" fill="#666666" stroke="#000000" stroke-width="1"/>
+                        <polygon points="60,60 100,40 100,80 60,100" fill="#cccccc" stroke="#000000" stroke-width="2"/>
                     </svg>
                 </div>
                 <div style="text-align: center;">
@@ -238,66 +225,37 @@
             </div>
         </div>
 
-        <!-- ZAKŁADKA 2: POBIERANIE PLIKU .JAR -->
-        <div id="jar" class="tab-content">
-            <div class="box">
-                <h2>☕ Pobieranie Pliku Executable (.jar)</h2>
-                <p style="font-size: 13px; color: #94a3b8; text-align: center;">Pobierz bezpośredni plik aplikacji w formacie Java Archive (.jar).</p>
-                
-                <div style="background-color: #0b0d14; padding: 20px; border-radius: 6px; text-align: center; border: 1px solid #242942; margin-top: 15px;">
-                    <div style="font-size: 3rem; margin-bottom: 10px;">☕</div>
-                    <div style="font-weight: bold; color: #00f0ff; margin-bottom: 5px;">AppForThe-main.jar</div>
-                    <div style="font-size: 12px; color: #94a3b8; margin-bottom: 15px;">Wersja: 1.0.0 • Plik wykonywalny Java</div>
-                    <a href="AppForThe-main.jar" download class="btn-download">💾 Pobierz plik .JAR</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- ZAKŁADKA 3: WERSJE I PACZKI ZIP -->
+        <!-- ZAKŁADKA 2: SILNIK API FOR J V1.1.1.0 -->
         <div id="wersje" class="tab-content">
-            <!-- WERSJA 1.16.5 (ZIP z GitHub Pages) -->
             <div class="box">
-                <h2>📦 Instalacja Wersji 1.16.5</h2>
-                <p style="font-size: 13px; color: #94a3b8; text-align: center;">Pobierz spakowaną wersję 1.16.5 z serwera GitHub Pages.</p>
+                <h2>🚀 Silnik <span class="version-tag">API for J v1.1.1.0</span></h2>
+                <p style="font-size: 13px; color: #666666; text-align: center;">Oficjalna paczka produkcyjna silnika EP Forge.</p>
                 
-                <div style="background-color: #0b0d14; padding: 20px; border-radius: 6px; text-align: center; border: 1px solid #242942; margin-top: 15px;">
-                    <div style="font-size: 3rem; margin-bottom: 10px;">📦</div>
-                    <div style="font-weight: bold; color: #00f0ff; margin-bottom: 5px;">1.16.5-pack.zip</div>
-                    <div style="font-size: 12px; color: #94a3b8; margin-bottom: 15px;">Paczka instalacyjna (.zip)</div>
-                    <a href="1.16.5-pack.zip" download class="btn-download">💾 Pobierz paczkę 1.16.5 (.ZIP)</a>
-                </div>
-            </div>
-
-            <!-- SILNIK EP FORGE (ZABEZPIECZONY) -->
-            <div class="box">
-                <h2>🚀 Paczka Silnika EP Forge <span class="version-tag">v1.1.0</span></h2>
-                <p style="font-size: 13px; color: #94a3b8; text-align: center;">Pobierz oficjalne środowisko 3D. Wymaga aktywnego zalogowania!</p>
-                
-                <div style="background-color: #0b0d14; padding: 12px; border-radius: 6px; margin: 15px 0; border-left: 4px solid #00f0ff;">
-                    <strong style="color: #00f0ff; font-size: 13px;">📦 Instrukcja instalacji:</strong>
-                    <p style="font-size: 12px; color: #94a3b8; margin: 5px 0 0 0; line-height: 1.4;">
-                        1. Zaloguj się w pierwszej zakładce (Sklep/Logowanie).<br>
-                        2. Kliknij poniższy przycisk, aby pobrać archiwum.<br>
-                        3. Wyodrębnij pliki i uruchom środowisko.
+                <div style="background-color: #f8f9fa; padding: 12px; border-radius: 6px; margin: 15px 0; border-left: 4px solid #000000; border-top: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0;">
+                    <strong style="color: #000000; font-size: 13px;">📦 Instrukcja pobierania:</strong>
+                    <p style="font-size: 12px; color: #555555; margin: 5px 0 0 0; line-height: 1.4;">
+                        1. Najpierw zaloguj się w pierwszej zakładce (Logowanie i Sklep).<br>
+                        2. Po udanej autoryzacji kliknij poniższy przycisk.<br>
+                        3. Pobranie pliku silnika zostanie uruchomione automatycznie.
                     </p>
                 </div>
 
                 <ul class="changelog">
-                    <li><strong>Środowisko Projektowe 3D:</strong> Pełna wizualizacja przestrzenna.</li>
-                    <li><strong>Dodawanie Kształtów:</strong> Generowanie obiektów Kostka i Sfera.</li>
-                    <li><strong>System Oświetlenia:</strong> Dynamiczne punkty świetlne.</li>
-                    <li><strong>Zapis i Odczyt Świata:</strong> Zapisywanie scen 3D do pliku.</li>
+                    <li><strong>Aktualizacja API:</strong> Silnik API for J w wersji v1.1.1.0.</li>
+                    <li><strong>Środowisko Projektowe 3D:</strong> Pełna wizualizacja przestrzenna i manipulacja obiektami.</li>
+                    <li><strong>Dodawanie Kształtów:</strong> Generowanie obiektów typu Kostka oraz Sfera.</li>
+                    <li><strong>System Oświetlenia i Zapis:</strong> Dynamiczne światła oraz bezproblemowy zapis i odczyt scen.</li>
                 </ul>
                 
                 <button class="btn-download" onclick="secureDownload()">
-                    🔒 Pobierz silnik v1.1.0 (.ZIP)
+                    🔒 Pobierz Silnik API for J v1.1.1.0 (.ZIP)
                 </button>
             </div>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 App for the / EP Forge • GitHub Pages Edition
+        &copy; 2026 EP Forge • Edition Monochrome
     </footer>
 
     <script>
@@ -311,7 +269,6 @@
             
             document.getElementById(tabName).classList.add("active");
             if(tabName === 'sklep') document.getElementById('tab-sklep').classList.add('active');
-            if(tabName === 'jar') document.getElementById('tab-jar').classList.add('active');
             if(tabName === 'wersje') document.getElementById('tab-wersje').classList.add('active');
         }
 
@@ -330,7 +287,7 @@
                 isSubmitedAndLogged = true; // ZALOGOWANY
                 
                 document.getElementById("userProfileIcon").style.display = "flex";
-                document.getElementById("loginBox").innerHTML = "<h2>✅ Autoryzacja udana!</h2><p style='text-align:center; color:#38bdf8;'>Profil Administratora aktywny. Plik klucza profilu (profil.epf) został pobrany na Twój komputer.</p>";
+                document.getElementById("loginBox").innerHTML = "<h2>✅ Autoryzacja udana!</h2><p style='text-align:center; color:#333333;'>Profil Administratora jest aktywny. Plik klucza profilu (profil.epf) został pobrany.</p>";
 
                 var secureToken = "TOKEN=EP_FORGE_SECURE_ACCESS_TOKEN_2026";
                 var blob = new Blob([secureToken], { type: "text/plain;charset=utf-8" });
@@ -343,12 +300,12 @@
             }
         }
 
-        /* BEZPIECZNE POBIERANIE PACZKI SILNIKA */
+        /* BEZPIECZNE POBIERANIE SILNIKA */
         function secureDownload() {
             if (isSubmitedAndLogged) {
                 var link = document.createElement("a");
-                link.href = "EP_Forge_v1.1.0.zip";
-                link.download = "EP_Forge_v1.1.0.zip";
+                link.href = "EP_Forge_v1.1.1.0.zip";
+                link.download = "EP_Forge_v1.1.1.0.zip";
                 link.click();
             } else {
                 alert("Najpierw zaloguj się w zakładce Logowanie!");
@@ -357,4 +314,4 @@
         }
     </script>
 </body>
-</html>
+</html
