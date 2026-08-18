@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Epic Forge Engine — 3D Development Platform</title>
+    <title>App for the</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #080808;
+            --bg-color: #0a0a0a;
             --card-bg: rgba(255, 255, 255, 0.03);
             --card-border: rgba(255, 255, 255, 0.12);
             --text-main: #ffffff;
             --text-muted: #888888;
             --accent-white: #ffffff;
-            --code-bg: #111111;
+            --btn-hover: #e6e6e6;
         }
 
         * {
@@ -34,14 +34,13 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            background-image: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
         }
 
-        /* Nawigacja */
+        /* Nagłówek i Nawigacja */
         header {
             width: 100%;
-            max-width: 1000px;
+            max-width: 900px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -58,149 +57,143 @@
             text-transform: uppercase;
         }
 
-        .logo span {
-            color: var(--text-muted);
-            font-weight: 400;
+        nav {
+            display: flex;
+            gap: 10px;
         }
 
-        .badge {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            padding: 4px 12px;
+        .nav-tab {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 8px 16px;
             border-radius: 20px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* Sekcja Główna */
-        main {
-            width: 100%;
-            max-width: 800px;
-            text-align: center;
-            margin: 50px 0;
-        }
-
-        h1 {
-            font-size: 3.2rem;
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -1.5px;
-            margin-bottom: 18px;
-        }
-
-        p.subtitle {
-            color: var(--text-muted);
-            font-size: 1.15rem;
-            margin-bottom: 40px;
-            font-weight: 300;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Przycisk Pobierania */
-        .download-box {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 35px;
-            backdrop-filter: blur(10px);
-            margin-bottom: 50px;
-        }
-
-        .btn-primary {
-            display: inline-block;
-            background-color: var(--accent-white);
-            color: #000000;
-            padding: 16px 36px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            border: none;
             cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
         }
 
-        .btn-primary:hover {
-            background-color: #e6e6e6;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+        .nav-tab:hover {
+            color: var(--text-main);
         }
 
-        .download-info {
-            margin-top: 15px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* Funkcje Engine'u */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            text-align: left;
-            margin-bottom: 40px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            padding: 24px;
-            border-radius: 12px;
-            transition: border-color 0.3s ease;
-        }
-
-        .card:hover {
+        .nav-tab.active {
+            background: var(--accent-white);
+            color: #000000;
             border-color: var(--accent-white);
         }
 
-        .card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            font-weight: 600;
+        /* Główny Kontener */
+        main {
+            width: 100%;
+            max-width: 650px;
+            margin: 40px 0;
         }
 
-        .card p {
+        .tab-content {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        p.desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        /* Formularze i Polecenia */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
             font-size: 0.85rem;
             color: var(--text-muted);
-            line-height: 1.5;
+            margin-bottom: 8px;
         }
 
-        /* Podgląd Kodu */
-        .code-preview {
-            background: var(--code-bg);
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: left;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: #cccccc;
-            overflow-x: auto;
-            margin-bottom: 40px;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
         }
 
-        .code-keyword { color: #ffffff; font-weight: bold; }
-        .code-comment { color: #666666; }
+        input:focus {
+            border-color: var(--text-main);
+        }
+
+        /* Przyciski */
+        .btn-action {
+            width: 100%;
+            background-color: var(--accent-white);
+            color: #000000;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-action:hover {
+            background-color: var(--btn-hover);
+        }
+
+        .download-box {
+            border: 1px dashed var(--card-border);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .file-info {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
 
         /* Stopka */
         footer {
             width: 100%;
-            max-width: 1000px;
+            max-width: 900px;
             padding: 20px 0;
             border-top: 1px solid var(--card-border);
             display: flex;
             justify-content: space-between;
-            align-items: center;
             color: var(--text-muted);
             font-size: 0.85rem;
         }
 
         @media (max-width: 600px) {
-            h1 { font-size: 2.2rem; }
+            header { flex-direction: column; gap: 15px; }
             footer { flex-direction: column; gap: 10px; text-align: center; }
         }
     </style>
@@ -208,47 +201,86 @@
 <body>
 
     <header>
-        <a href="#" class="logo">EPIC<span>FORGE</span></a>
-        <span class="badge">v67.0 / .NET Engine</span>
+        <a href="#" class="logo">App for the</a>
+        <nav>
+            <button class="nav-tab active" onclick="switchTab('login')">Logowanie</button>
+            <button class="nav-tab" onclick="switchTab('download')">Pliki (.jar)</button>
+            <button class="nav-tab" onclick="switchTab('version1165')">Wersja 1.16.5</button>
+        </nav>
     </header>
 
     <main>
-        <h1>Twórz, renderuj i buduj w 3D.</h1>
-        <p class="subtitle">Wydajny silnik 3D w C# wyposażony w menedżer scen, zaawansowaną kontrolę kamery i wsparcie wielojęzyczne.</p>
-
-        <div class="download-box">
-            <a href="EpicForgeSetup.exe" class="btn-primary">Pobierz Instalator Engine'u</a>
-            <p class="download-info">Plik: EpicForgeSetup.exe | Wersja v67 | C# .NET</p>
+        <!-- ZAKŁADKA 1: LOGOWANIE -->
+        <div id="tab-login" class="tab-content active">
+            <h2>Logowanie</h2>
+            <p class="desc">Zaloguj się do systemu App for the, aby uzyskać dostęp do panelu.</p>
+            <form onsubmit="event.preventDefault(); alert('Zalogowano pomyślnie!');">
+                <div class="form-group">
+                    <label>Nazwa użytkownika / Email</label>
+                    <input type="text" placeholder="Wprowadź login..." required>
+                </div>
+                <div class="form-group">
+                    <label>Hasło</label>
+                    <input type="password" placeholder="Wprowadź hasło..." required>
+                </div>
+                <button type="submit" class="btn-action">Zaloguj się</button>
+            </form>
         </div>
 
-        <div class="grid">
-            <div class="card">
-                <h3>SceneViewer 3D</h3>
-                <p>Pełna kontrola nad scenami, manipulacja obiektami 3D oraz precyzyjne skalowanie geometrii.</p>
-            </div>
-            <div class="card">
-                <h3>System Profilu</h3>
-                <p>Bezpieczna weryfikacja sesji i profili użytkownika za pomocą dedykowanych plików <code>profil.epf</code>.</p>
-            </div>
-            <div class="card">
-                <h3>Pakiet Językowy</h3>
-                <p>Wbudowana obsługa lokalizacji dla języków azjatyckich: chińskiego, koreańskiego oraz japońskiego.</p>
+        <!-- ZAKŁADKA 2: POBIERANIE PLIKU .JAR -->
+        <div id="tab-download" class="tab-content">
+            <h2>Pobierz plik Executable (.jar)</h2>
+            <p class="desc">Pobierz bezpośredni plik aplikacji w formacie Java Archive (.jar).</p>
+            <div class="download-box">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">☕</div>
+                <div style="font-weight: 600; margin-bottom: 5px;">AppForThe-main.jar</div>
+                <div class="file-info">Wersja: 1.0.0 • Plik wykonywalny Java</div>
+                <a href="AppForThe-main.jar" download class="btn-action">Pobierz plik .jar</a>
             </div>
         </div>
 
-        <div class="code-preview">
-            <span class="code-comment">// Epic Forge Engine Core - Initialize Scene</span><br>
-            <span class="code-keyword">var</span> engine = <span class="code-keyword">new</span> EpicForgeEngine();<br>
-            engine.LoadProfile(<span class="code-string">"profil.epf"</span>);<br>
-            engine.SceneViewer.Initialize3D();<br>
-            engine.Run();
+        <!-- ZAKŁADKA 3: WERSJA 1.16.5 (ZIP z GitHub Pages) -->
+        <div id="tab-version1165" class="tab-content">
+            <h2>Instalacja Wersji 1.16.5</h2>
+            <p class="desc">Pobierz spakowaną wersję 1.16.5 hostowaną bezpośrednio na GitHub Pages.</p>
+            <div class="download-box">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">📦</div>
+                <div style="font-weight: 600; margin-bottom: 5px;">1.16.5-pack.zip</div>
+                <div class="file-info">Paczka instalacyjna 1.16.5 (.zip)</div>
+                <!-- Podepnij poniżej swoją bezpośrednią ścieżkę do pliku zip na GitHub Pages -->
+                <a href="1.16.5-pack.zip" download class="btn-action">Pobierz paczkę 1.16.5 (.zip)</a>
+            </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Epic Forge Framework.</p>
-        <p>Zbudowano do materiału na YouTube Shorts</p>
+        <p>&copy; 2026 App for the</p>
+        <p>GitHub Pages Edition</p>
     </footer>
 
+    <script>
+        function switchTab(tabName) {
+            // Ukryj wszystkie zakładki
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // Odznacz przyciski nawigacji
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Aktywuj wybraną zakładkę i przycisk
+            if (tabName === 'login') {
+                document.getElementById('tab-login').classList.add('active');
+                event.target.classList.add('active');
+            } else if (tabName === 'download') {
+                document.getElementById('tab-download').classList.add('active');
+                event.target.classList.add('active');
+            } else if (tabName === 'version1165') {
+                document.getElementById('tab-version1165').classList.add('active');
+                event.target.classList.add('active');
+            }
+        }
+    </script>
 </body>
 </html>
