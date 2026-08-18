@@ -2,9 +2,8 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0
-    ">
-    <title>EP Forge - Panel Dewelopera</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic Forge - Panel Dewelopera</title>
     <style>
         /* MINIMALISTYCZNA BIAŁO-CZARNA KOLORYSTYKA (MONOCHROME / LIGHT) */
         body { 
@@ -175,8 +174,8 @@
 
     <div>
         <div class="header">
-            <h1>EP Forge</h1>
-            <p>Panel Autoryzacji Deweloperskiej i Silnika API</p>
+            <h1>Centrum Zarządzania Epic Forge</h1>
+            <p>Zabezpieczony panel autoryzacji deweloperskiej</p>
             
             <div id="userProfileIcon" class="profile-icon" onclick="toggleProfilePopup()">👤</div>
             
@@ -189,14 +188,14 @@
 
         <!-- PASEK ZAKŁADEK -->
         <div class="tabs-container">
-            <button class="tab-button active" id="tab-sklep" onclick="openTab('sklep')">🔑 Logowanie i Sklep</button>
-            <button class="tab-button" id="tab-wersje" onclick="openTab('wersje')">⚙️ wersje</button>
+            <button class="tab-button active" id="tab-sklep" onclick="openTab('sklep')">🛒 Sklep</button>
+            <button class="tab-button" id="tab-wersje" onclick="openTab('wersje')">📂 Wersje</button>
         </div>
 
-        <!-- ZAKŁADKA 1: LOGOWANIE I SKLEP -->
+        <!-- ZAKŁADKA 1: SKLEP / LOGOWANIE -->
         <div id="sklep" class="tab-content active">
             <div class="box" id="loginBox">
-                <h2>🔑 Logowanie do EP Forge</h2>
+                <h2>🔑 Logowanie do Epic Forge</h2>
                 <p style="font-size: 13px; color: #666666;">Zaloguj się poprawnymi danymi, aby odblokować profil i pobrać klucz dostępu (.epf).</p>
                 
                 <div id="webError">❌ Błędna nazwa użytkownika lub hasło!</div>
@@ -226,37 +225,42 @@
             </div>
         </div>
 
-        <!-- ZAKŁADKA 2: SILNIK API FOR J V1.1.1.0 -->
+        <!-- ZAKŁADKA 2: WERSJE -->
         <div id="wersje" class="tab-content">
-            <div class="box">
-                <h2>🚀 Silnik <span class="version-tag">EP forge v1.1.0</span></h2>
-                <p style="font-size: 13px; color: #666666; text-align: center;">Oficjalna paczka produkcyjna silnika EP Forge.</p>
+            <div class="box" style="max-width: 550px;">
+                <h2>🚀 Historia Wydań Silnika</h2>
+                <p style="font-size: 14px; text-align: center; color: #666666;">Pobierz oficjalną paczkę ZIP środowiska 3D.</p>
                 
-                <div style="background-color: #f8f9fa; padding: 12px; border-radius: 6px; margin: 15px 0; border-left: 4px solid #000000; border-top: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0;">
-                    <strong style="color: #000000; font-size: 13px;">📦 Instrukcja pobierania:</strong>
+                <hr style="border-color: #e0e0e0; margin: 15px 0;">
+
+                <h3>Epic Forge <span class="version-tag">v1.1.0</span></h3>
+                <p style="font-size: 13px; color: #777777; margin-top: -5px; text-align: center;">Opublikowano: Czerwiec 2026 r.</p>
+                
+                <div style="background-color: #f8f9fa; padding: 12px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #000000; border-top: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0;">
+                    <strong style="color: #000000; font-size: 13px;">📦 Instrukcja instalacji paczki ZIP:</strong>
                     <p style="font-size: 12px; color: #555555; margin: 5px 0 0 0; line-height: 1.4;">
-                        1. Najpierw zaloguj się w pierwszej zakładce (Logowanie i Sklep).<br>
-                        2. Po udanej autoryzacji kliknij poniższy przycisk.<br>
-                        3. Pobranie pliku silnika zostanie uruchomione automatycznie.
+                        1. Zaloguj się w zakładce Sklep.<br>
+                        2. Pobierz archiwum ZIP za pomocą przycisku poniżej.<br>
+                        3. Wyodrębnij wszystko i uruchom silnik.
                     </p>
                 </div>
 
                 <ul class="changelog">
-                    <li><strong>Aktualizacja API:</strong> Silnik API for J w wersji v1.1.1.0.</li>
-                    <li><strong>Środowisko Projektowe 3D:</strong> Pełna wizualizacja przestrzenna i manipulacja obiektami.</li>
-                    <li><strong>Dodawanie Kształtów:</strong> Generowanie obiektów typu Kostka oraz Sfera.</li>
-                    <li><strong>System Oświetlenia i Zapis:</strong> Dynamiczne światła oraz bezproblemowy zapis i odczyt scen.</li>
+                    <li><strong>Środowisko Projektowe 3D:</strong> Pełna wizualizacja przestrzenna i manipulacja obiektami sceny.</li>
+                    <li><strong>Dodawanie Kształtów (Primitives):</strong> Generowanie obiektów typu <strong>Kostka (Cube)</strong> oraz <strong>Sfera (Sphere)</strong>.</li>
+                    <li><strong>System Oświetlenia:</strong> Obsługa dynamicznych punktów świetlnych (<strong>Light</strong>).</li>
+                    <li><strong>Zapis i Odczyt Świata:</strong> Bezpieczne zapisywanie stworzonych scen 3D do pliku i ich wczytywanie.</li>
                 </ul>
                 
                 <button class="btn-download" onclick="secureDownload()">
-                    🔒 Pobierz Silnik EP forge v1.1.0 (.ZIP)
+                    💾 Pobierz wersję v1.1.0 (.ZIP)
                 </button>
             </div>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 EP Forge • Edition Monochrome
+        &copy; 2026 Epic Forge • Panel Dewelopera
     </footer>
 
     <script>
@@ -288,7 +292,7 @@
                 isSubmitedAndLogged = true; // ZALOGOWANY
                 
                 document.getElementById("userProfileIcon").style.display = "flex";
-                document.getElementById("loginBox").innerHTML = "<h2>✅ Autoryzacja udana!</h2><p style='text-align:center; color:#333333;'>Profil Administratora jest aktywny. Plik klucza profilu (profil.epf) został pobrany.</p>";
+                document.getElementById("loginBox").innerHTML = "<h2>✅ Autoryzacja udana!</h2><p style='text-align:center; color:#333333;'>Profil Administratora aktywny. Plik klucza profilu (profil.epf) został pobrany na Twój komputer.</p>";
 
                 var secureToken = "TOKEN=EP_FORGE_SECURE_ACCESS_TOKEN_2026";
                 var blob = new Blob([secureToken], { type: "text/plain;charset=utf-8" });
@@ -301,15 +305,15 @@
             }
         }
 
-        /* BEZPIECZNE POBIERANIE SILNIKA */
+        /* BEZPIECZNE POBIERANIE PACZKI ZIP */
         function secureDownload() {
             if (isSubmitedAndLogged) {
                 var link = document.createElement("a");
-                link.href = "EP_Forge_v1.1.1.0.zip";
-                link.download = "EP_Forge_v1.1.1.0.zip";
+                link.href = "Epic_Forge_v1.1.0.zip";
+                link.download = "Epic_Forge_v1.1.0.zip";
                 link.click();
             } else {
-                alert("Najpierw zaloguj się w zakładce Logowanie!");
+                alert("Najpierw zaloguj się dla bezpieczeństwa!");
                 openTab('sklep');
             }
         }
