@@ -233,17 +233,34 @@
                 
                 <hr style="border-color: #e0e0e0; margin: 15px 0;">
 
-                <h3>Epic Forge <span class="version-tag">v1.1.0</span></h3>
-                <p style="font-size: 13px; color: #777777; margin-top: -5px; text-align: center;">Opublikowano: Czerwiec 2026 r.</p>
+                <!-- WERSJA 1.2.0 (NAJNOWSZA) -->
+                <h3>Epic Forge <span class="version-tag">v1.2.0</span> 🔥</h3>
+                <p style="font-size: 13px; color: #777777; margin-top: -5px; text-align: center;">Opublikowano: Sierpień 2026 r.</p>
                 
                 <div style="background-color: #f8f9fa; padding: 12px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #000000; border-top: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0;">
                     <strong style="color: #000000; font-size: 13px;">📦 Instrukcja instalacji paczki ZIP:</strong>
                     <p style="font-size: 12px; color: #555555; margin: 5px 0 0 0; line-height: 1.4;">
                         1. Zaloguj się w zakładce Sklep.<br>
-                        2. Pobierz archiwum ZIP za pomocą przycisku poniżej.<br>
+                        2. Pobierz najnowsze archiwum ZIP za pomocą przycisku poniżej.<br>
                         3. Wyodrębnij wszystko i uruchom silnik.
                     </p>
                 </div>
+
+                <ul class="changelog">
+                    <li><strong>Optymalizacja wydajności:</strong> Znaczne przyspieszenie renderowania scen.</li>
+                    <li><strong>Aktualizacja API:</strong> Nowe metody zarządzania obiektami w czasie rzeczywistym.</li>
+                    <li><strong>Poprawki błędów:</strong> Usunięto usterki związane z ładowaniem profili `.epf`.</li>
+                </ul>
+                
+                <button class="btn-download" onclick="secureDownload('EP_Forge_v1.2.0.zip')">
+                    💾 Pobierz wersję v1.2.0 (.ZIP)
+                </button>
+
+                <hr style="border-color: #e0e0e0; margin: 25px 0;">
+
+                <!-- WERSJA 1.1.0 (STARSZA) -->
+                <h3>Epic Forge <span class="version-tag">v1.1.0</span></h3>
+                <p style="font-size: 13px; color: #777777; margin-top: -5px; text-align: center;">Opublikowano: Czerwiec 2026 r.</p>
 
                 <ul class="changelog">
                     <li><strong>Środowisko Projektowe 3D:</strong> Pełna wizualizacja przestrzenna i manipulacja obiektami sceny.</li>
@@ -252,7 +269,7 @@
                     <li><strong>Zapis i Odczyt Świata:</strong> Bezpieczne zapisywanie stworzonych scen 3D do pliku i ich wczytywanie.</li>
                 </ul>
                 
-                <button class="btn-download" onclick="secureDownload()">
+                <button class="btn-download" onclick="secureDownload('EP_Forge_v1.1.0.zip')">
                     💾 Pobierz wersję v1.1.0 (.ZIP)
                 </button>
             </div>
@@ -305,12 +322,12 @@
             }
         }
 
-        /* BEZPIECZNE POBIERANIE PACZKI ZIP */
-        function secureDownload() {
+        /* BEZPIECZNE POBIERANIE PACZKI ZIP (DYNAMICZNY PLIK) */
+        function secureDownload(fileName) {
             if (isSubmitedAndLogged) {
                 var link = document.createElement("a");
-                link.href = "EP_Forge_v1.1.0.zip";
-                link.download = "EP_Forge_v1.1.0.zip";
+                link.href = fileName;
+                link.download = fileName;
                 link.click();
             } else {
                 alert("Najpierw zaloguj się dla bezpieczeństwa!");
