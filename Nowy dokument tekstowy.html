@@ -18,6 +18,42 @@
             flex-direction: column;
             justify-content: space-between;
         }
+
+        /* NAKŁADKA PRZERWY KONSERWACYJNEJ */
+        #maintenance-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(255, 255, 255, 0.95);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        #maintenance-overlay h1 {
+            font-size: 28px;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+
+        #maintenance-overlay p {
+            font-size: 16px;
+            color: #555555;
+            max-width: 500px;
+            line-height: 1.5;
+        }
+
+        /* BLOKADA STRONY W TLE */
+        .maintenance-active {
+            pointer-events: none;
+            user-select: none;
+            filter: grayscale(80%);
+        }
         
         .header { margin-bottom: 30px; position: relative; }
         .header h1 { color: #000000; letter-spacing: -0.5px; margin-bottom: 5px; font-weight: 800; }
@@ -170,7 +206,13 @@
         }
     </style>
 </head>
-<body>
+<body class="maintenance-active">
+
+    <!-- KOMUNIKAT O PRZERWIE KONSERWACYJNEJ -->
+    <div id="maintenance-overlay">
+        <h1>🛠️ Przerwa Konserwacyjna</h1>
+        <p>Trwają prace techniczne nad aktualizacją serwerów Epic Forge. Przepraszamy za utrudnienia.</p>
+    </div>
 
     <div>
         <div class="header">
@@ -282,6 +324,18 @@
 
     <script>
         var isSubmitedAndLogged = false;
+
+        // ODDACHOWANIE / ODBLOKOWANIE PO KLIKNIĘCIU F5 / FN+F5
+        window.addEventListener('keydown', function(event) {
+            if (event.key === 'F5' || event.keyCode === 116) {
+                event.preventDefault(); // Zapobiega odświeżeniu strony w przeglądarce
+                var overlay = document.getElementById('maintenance-overlay');
+                if (overlay) {
+                    overlay.style.display = 'none';
+                    document.body.classList.remove('maintenance-active');
+                }
+            }
+        });
 
         function openTab(tabName) {
             var contents = document.getElementsByClassName("tab-content");
